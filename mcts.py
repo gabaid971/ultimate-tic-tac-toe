@@ -13,13 +13,13 @@ class Tree:
         self.played = played
         self.checked = [0 for i in range(9)]
 
-def selection(padre):
+def selection(node):
     maxi = 0
     the_good_one = None
-    for child in padre.children:
+    for child in node.children:
         n = child.visited
         w = child.wins 
-        value = w/n+np.sqrt(2)*np.sqrt(np.log(padre.visited)/n)
+        value = w/n+np.sqrt(2)*np.sqrt(np.log(node.visited)/n)
         if value >= maxi:
             maxi = value
             the_good_one = child
