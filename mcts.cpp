@@ -11,7 +11,7 @@ using namespace std;
 struct Node
 {
     public:
-        Node(Node *padre,vector<int> disp , int move, vector<int> check);
+        Node(Node *parent_, vector<int> dispo_ , int played_, vector<int> checked_);
         ~Node();
         double wins;
         double visited;
@@ -22,27 +22,27 @@ struct Node
         Node *parent;
 };
 
-Node::Node(Node *padre, vector<int> disp, int move, vector<int> check):visited(1), wins(0)
+Node::Node(Node *parent_, vector<int> dispo_, int played_, vector<int> checked_):visited(1), wins(0)
 {
-    parent = padre;
-    dispo = disp;
-    played = move;
-    checked = check;
+    parent = parent_;
+    dispo = dispo_;
+    played = played_;
+    checked = checked_;
 }
 
-Node *selection(Node &padre)
+Node *selection(Node &node)
 {
     double maxi = 0;
     Node *the_good_one = NULL;
-    for (size_t i = 0; i < padre.children.size(); ++i)
+    for (size_t i = 0; i < node.children.size(); ++i)
     {
-        double n = padre.children[i]->visited;
-        double w = padre.children[i]->wins;
-        double value = double( w/n + sqrt(2)*sqrt(log(padre.visited)/n) );
+        double n = node.children[i]->visited;
+        double w = node.children[i]->wins;
+        double value = double( w/n + sqrt(2)*sqrt(log(node.visited)/n) );
         if (value >= maxi)
         {
             maxi = value;
-            the_good_one = padre.children[i];
+            the_good_one = node.children[i];
         }
     }
     return the_good_one;
